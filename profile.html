@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Santamore Feeds</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --wheat: #F2E3BC;
+            --brown: #8B5E3C;
+            --forest: #2E5A39;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: var(--forest);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            color: var(--wheat) !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--wheat) !important;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--forest) 0%, #1a3322 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--brown) 0%, #6d4a2e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+        
+        .wallet-card {
+            background: linear-gradient(135deg, var(--forest) 0%, #1a3322 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .wallet-balance {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .wallet-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-wallet {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-wallet:hover {
+            background: white;
+            color: var(--forest);
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--forest);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--wheat);
+        }
+        
+        .order-item {
+            border-left: 4px solid var(--brown);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .order-item:hover {
+            background-color: var(--wheat);
+            transform: translateX(5px);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .order-id {
+            font-weight: bold;
+            color: var(--forest);
+        }
+        
+        .order-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fff3e0;
+            color: #ff9800;
+        }
+        
+        .status-paid {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+        
+        .status-delivered {
+            background-color: #e3f2fd;
+            color: #2196f3;
+        }
+        
+        .payment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .payment-amount {
+            font-weight: bold;
+            color: var(--forest);
+        }
+        
+        .payment-date {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .installment-tracker {
+            background-color: var(--wheat);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .installment-progress {
+            margin-top: 1rem;
+        }
+        
+        .progress {
+            height: 25px;
+            border-radius: 12px;
+            background-color: #e0e0e0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--forest) 0%, #4caf50 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .btn-pay {
+            background-color: var(--brown);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-pay:hover {
+            background-color: #6d4a2e;
+            transform: translateY(-2px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background-color: var(--wheat);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--forest);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Santamore Feeds</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalog.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="groupbuy.html">Group Buys</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>👤 My Account</h1>
+            <p class="mb-0">Manage your orders, wallet, and profile</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-4">
+                <!-- Profile Summary -->
+                <div class="profile-summary">
+                    <div class="profile-avatar">JK</div>
+                    <div class="text-center">
+                        <h4 style="color: var(--forest);">John Kamau</h4>
+                        <p class="mb-1">📱 0712 345 678</p>
+                        <p class="mb-0" style="color: #666;">📍 Nyeri Town Zone</p>
+                        <p class="mt-2 mb-0"><small>Member since Nov 2024</small></p>
+                    </div>
+                </div>
+
+                <!-- Wallet Card -->
+                <div class="wallet-card">
+                    <div>💰 <strong>Lipa Mdogo Mdogo Wallet</strong></div>
+                    <div class="wallet-balance">KES 2,500</div>
+                    <p style="opacity: 0.9;">Available Balance</p>
+                    <div class="wallet-actions">
+                        <button class="btn-wallet">+ Add Money</button>
+                        <button class="btn-wallet">↓ Withdraw</button>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Total Orders</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Active Groups</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">KES 8,400</div>
+                        <div class="stat-label">Total Savings</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-8">
+                <!-- Active Installments -->
+                <div class="section-card">
+                    <div class="section-title">📊 Active Installment Plans</div>
+                    
+                    <div class="installment-tracker">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <strong style="color: var(--forest);">Order #SF-2024-089</strong><br>
+                                <small>2x Dairy Meal 16% (50kg)</small>
+                            </div>
+                            <button class="btn-pay">Pay KES 500</button>
+                        </div>
+                        <div class="installment-progress">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 60%">60%</div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2" style="font-size: 0.9rem;">
+                                <span>Paid: <strong>KES 2,520</strong></span>
+                                <span>Remaining: <strong>KES 1,680</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installment-tracker">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <strong style="color: var(--forest);">Order #SF-2024-092</strong><br>
+                                <small>1x Layer Mash (70kg)</small>
+                            </div>
+                            <button class="btn-pay">Pay KES 300</button>
+                        </div>
+                        <div class="installment-progress">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 35%">35%</div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2" style="font-size: 0.9rem;">
+                                <span>Paid: <strong>KES 980</strong></span>
+                                <span>Remaining: <strong>KES 1,820</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="section-card">
+                    <div class="section-title">📦 Recent Orders</div>
+                    
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Order #SF-2024-095</div>
+                                <div style="font-size: 0.9rem; color: #666;">Dec 5, 2024</div>
+                            </div>
+                            <span class="order-status status-pending">Pending Payment</span>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            1x Pig Grower (70kg) • <strong>KES 2,850</strong><br>
+                            <small>Group Buy: Nyeri Town</small>
+                        </div>
+                    </div>
+
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Order #SF-2024-092</div>
+                                <div style="font-size: 0.9rem; color: #666;">Dec 3, 2024</div>
+                            </div>
+                            <span class="order-status status-paid">Paid</span>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            1x Layer Mash (70kg) • <strong>KES 2,800</strong><br>
+                            <small>Delivery: Dec 13, 2:00 PM</small>
+                        </div>
+                    </div>
+
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Order #SF-2024-089</div>
+                                <div style="font-size: 0.9rem; color: #666;">Nov 28, 2024</div>
+                            </div>
+                            <span class="order-status status-delivered">Delivered</span>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            2x Dairy Meal 16% (50kg) • <strong>KES 4,200</strong><br>
+                            <small>Delivered Nov 30, 3:45 PM</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment History -->
+                <div class="section-card">
+                    <div class="section-title">💳 Recent Payments</div>
+                    
+                    <div class="payment-item">
+                        <div>
+                            <div><strong>Wallet Top-Up</strong></div>
+                            <div class="payment-date">Dec 5, 2024 • 10:30 AM</div>
+                        </div>
+                        <div class="payment-amount" style="color: #4caf50;">+ KES 1,000</div>
+                    </div>
+
+                    <div class="payment-item">
+                        <div>
+                            <div><strong>Installment Payment</strong></div>
+                            <div class="payment-date">Dec 4, 2024 • 2:15 PM</div>
+                            <div style="font-size: 0.85rem; color: #666;">Order #SF-2024-089</div>
+                        </div>
+                        <div class="payment-amount" style="color: var(--brown);">- KES 500</div>
+                    </div>
+
+                    <div class="payment-item">
+                        <div>
+                            <div><strong>Full Payment</strong></div>
+                            <div class="payment-date">Dec 3, 2024 • 11:00 AM</div>
+                            <div style="font-size: 0.85rem; color: #666;">Order #SF-2024-092</div>
+                        </div>
+                        <div class="payment-amount" style="color: var(--brown);">- KES 2,800</div>
+                    </div>
+
+                    <div class="payment-item">
+                        <div>
+                            <div><strong>Wallet Top-Up</strong></div>
+                            <div class="payment-date">Dec 1, 2024 • 4:20 PM</div>
+                        </div>
+                        <div class="payment-amount" style="color: #4caf50;">+ KES 2,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

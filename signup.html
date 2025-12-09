@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Santamore Feeds</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --wheat: #F2E3BC;
+            --brown: #8B5E3C;
+            --forest: #2E5A39;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--wheat) 0%, #e8d4a0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        
+        .signup-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-header {
+            background-color: var(--forest);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--forest);
+            box-shadow: 0 0 0 0.2rem rgba(46, 90, 57, 0.25);
+        }
+        
+        .btn-primary-custom {
+            background-color: var(--brown);
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: #6d4a2e;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--forest);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+        }
+        
+        .info-box p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-link a {
+            color: var(--forest);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="logo">🌾</div>
+                    <h3>Join Santamore Feeds</h3>
+                    <p class="mb-0">Start saving on animal feeds today</p>
+                </div>
+                <div class="card-body">
+                    <div class="info-box">
+                        <p><strong>💡 Why sign up?</strong> Join farmers in your zone to unlock wholesale prices and pay in installments.</p>
+                    </div>
+                    
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="John Kamau" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone Number (M-Pesa)</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="0712345678" pattern="[0-9]{10}" required>
+                            <small class="text-muted">This will be your login and payment number</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="zone" class="form-label">Select Your Home Zone</label>
+                            <select class="form-select" id="zone" required>
+                                <option value="" selected disabled>Choose your area...</option>
+                                <option value="nyeri_town">Nyeri Town</option>
+                                <option value="karatina">Karatina</option>
+                                <option value="othaya">Othaya</option>
+                                <option value="mukurweini">Mukurweini</option>
+                                <option value="kieni">Kieni</option>
+                                <option value="tetu">Tetu</option>
+                                <option value="mathira">Mathira</option>
+                                <option value="nanyuki">Nanyuki</option>
+                                <option value="mweiga">Mweiga</option>
+                                <option value="kiganjo">Kiganjo</option>
+                            </select>
+                            <small class="text-muted">Delivery groups are formed by zone</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="farmType" class="form-label">Type of Farming</label>
+                            <select class="form-select" id="farmType" required>
+                                <option value="" selected disabled>Select farming type...</option>
+                                <option value="dairy">Dairy Cattle</option>
+                                <option value="chicken">Chicken (Layers/Broilers)</option>
+                                <option value="pigs">Pig Farming</option>
+                                <option value="goats">Goat Farming</option>
+                                <option value="mixed">Mixed Farming</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">
+                                I agree to the <a href="#" style="color: var(--forest);">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary-custom">Create Account</button>
+                    </form>
+                    
+                    <div class="login-link">
+                        Already have an account? <a href="login.html">Login here</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="index.html" style="color: var(--forest); text-decoration: none;">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

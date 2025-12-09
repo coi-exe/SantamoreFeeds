@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Buy Dashboard - Santamore Feeds</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --wheat: #F2E3BC;
+            --brown: #8B5E3C;
+            --forest: #2E5A39;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: var(--forest);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            color: var(--wheat) !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--wheat) !important;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--forest) 0%, #1a3322 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--forest);
+        }
+        
+        .stats-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .group-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .group-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--forest);
+        }
+        
+        .status-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .status-waiting {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .status-completed {
+            background-color: #2196f3;
+            color: white;
+        }
+        
+        .progress-section {
+            margin: 1.5rem 0;
+        }
+        
+        .progress {
+            height: 30px;
+            border-radius: 15px;
+            background-color: #e0e0e0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--forest) 0%, #4caf50 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .participants {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .participant-avatars {
+            display: flex;
+            margin-left: 0.5rem;
+        }
+        
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--brown);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
+            margin-left: -10px;
+        }
+        
+        .avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .price-breakdown {
+            background-color: var(--wheat);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-row.total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--forest);
+            border-top: 2px solid #ddd;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .savings-highlight {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .btn-join {
+            background-color: var(--brown);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-join:hover {
+            background-color: #6d4a2e;
+            transform: translateY(-2px);
+        }
+        
+        .btn-join:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .delivery-info {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        
+        .delivery-info strong {
+            color: var(--forest);
+        }
+        
+        .countdown {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .countdown-timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff9800;
+        }
+        
+        .tab-navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin-right: 0.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background-color: var(--forest);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Santamore Feeds</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalog.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="groupbuy.html">Group Buys</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>🤝 Group Buy Dashboard</h1>
+            <p class="mb-0">Join active groups in your zone to unlock wholesale prices</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <!-- Stats Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">8</div>
+                    <div class="stats-label">Active Groups in Your Zone</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">27</div>
+                    <div class="stats-label">Farmers Participating</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">KES 680</div>
+                    <div class="stats-label">Avg. Savings Per Order</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">3</div>
+                    <div class="stats-label">Groups Ready for Delivery</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active">Active Groups</button>
+            <button class="tab-btn">My Groups</button>
+            <button class="tab-btn">Completed</button>
+        </div>
+
+        <!-- Group Cards -->
+        <div class="row">
+            <!-- Group 1: Almost Complete -->
+            <div class="col-lg-6">
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-title">🐄 Dairy Meal 16% - Nyeri Town</div>
+                        <span class="status-badge status-active">ACTIVE</span>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%">85%</div>
+                        </div>
+                        <div class="progress-info">
+                            <span><strong>425kg</strong> ordered</span>
+                            <span>Target: <strong>500kg</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="participants">
+                        <span>👥 <strong>8 farmers</strong> joined:</span>
+                        <div class="participant-avatars">
+                            <div class="avatar">JK</div>
+                            <div class="avatar">PM</div>
+                            <div class="avatar">MW</div>
+                            <div class="avatar">SK</div>
+                            <div class="avatar">+4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Retail Price (per 50kg bag):</span>
+                            <span style="text-decoration: line-through;">KES 2,800</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Current Group Price:</span>
+                            <span><strong>KES 2,100</strong></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Your Savings:</span>
+                            <span class="savings-highlight">KES 700 (25%)</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total for 1 bag:</span>
+                            <span>KES 2,100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="countdown">
+                        <div>⏰ Group closes in:</div>
+                        <div class="countdown-timer">2 days 14 hours</div>
+                    </div>
+                    
+                    <button class="btn-join mt-3">Join This Group</button>
+                </div>
+            </div>
+
+            <!-- Group 2: Just Started -->
+            <div class="col-lg-6">
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-title">🐔 Layer Mash - Nyeri Town</div>
+                        <span class="status-badge status-waiting">WAITING</span>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 35%">35%</div>
+                        </div>
+                        <div class="progress-info">
+                            <span><strong>210kg</strong> ordered</span>
+                            <span>Target: <strong>600kg</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="participants">
+                        <span>👥 <strong>3 farmers</strong> joined:</span>
+                        <div class="participant-avatars">
+                            <div class="avatar">AN</div>
+                            <div class="avatar">JM</div>
+                            <div class="avatar">LW</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Retail Price (per 70kg bag):</span>
+                            <span style="text-decoration: line-through;">KES 3,500</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Target Group Price:</span>
+                            <span><strong>KES 2,800</strong></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Potential Savings:</span>
+                            <span class="savings-highlight">KES 700 (20%)</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total for 1 bag:</span>
+                            <span>KES 2,800</span>
+                        </div>
+                    </div>
+                    
+                    <div class="countdown">
+                        <div>⏰ Group closes in:</div>
+                        <div class="countdown-timer">4 days 8 hours</div>
+                    </div>
+                    
+                    <button class="btn-join mt-3">Join This Group</button>
+                </div>
+            </div>
+
+            <!-- Group 3: Ready for Delivery -->
+            <div class="col-lg-6">
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-title">🐷 Pig Grower - Nyeri Town</div>
+                        <span class="status-badge status-completed">READY</span>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%">100% ✓</div>
+                        </div>
+                        <div class="progress-info">
+                            <span><strong>560kg</strong> ordered</span>
+                            <span>Target: <strong>500kg</strong> ACHIEVED!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="participants">
+                        <span>👥 <strong>6 farmers</strong> joined:</span>
+                        <div class="participant-avatars">
+                            <div class="avatar">You</div>
+                            <div class="avatar">DK</div>
+                            <div class="avatar">RM</div>
+                            <div class="avatar">CN</div>
+                            <div class="avatar">+2</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Retail Price (per 70kg bag):</span>
+                            <span style="text-decoration: line-through;">KES 3,800</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Final Group Price:</span>
+                            <span><strong>KES 2,850</strong></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Your Savings:</span>
+                            <span class="savings-highlight">KES 950 (25%)</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Your Total (2 bags):</span>
+                            <span>KES 5,700</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-info">
+                        <strong>🚚 Delivery Scheduled:</strong><br>
+                        Friday, Dec 13, 2024 • 2:00 PM - 5:00 PM<br>
+                        Delivery Fee (shared): KES 150 per bag
+                    </div>
+                    
+                    <button class="btn-join mt-3" disabled>You're Already In This Group</button>
+                </div>
+            </div>
+
+            <!-- Group 4: Another Active Group -->
+            <div class="col-lg-6">
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-title">🐮 Calf Starter - Nyeri Town</div>
+                        <span class="status-badge status-active">ACTIVE</span>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 60%">60%</div>
+                        </div>
+                        <div class="progress-info">
+                            <span><strong>300kg</strong> ordered</span>
+                            <span>Target: <strong>500kg</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="participants">
+                        <span>👥 <strong>6 farmers</strong> joined:</span>
+                        <div class="participant-avatars">
+                            <div class="avatar">TM</div>
+                            <div class="avatar">NK</div>
+                            <div class="avatar">BW</div>
+                            <div class="avatar">GM</div>
+                            <div class="avatar">+2</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Retail Price (per 50kg bag):</span>
+                            <span style="text-decoration: line-through;">KES 2,600</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Current Group Price:</span>
+                            <span><strong>KES 2,080</strong></span>
+                        </div>
+                        <div class="price-row">
+                            <span>Your Savings:</span>
+                            <span class="savings-highlight">KES 520 (20%)</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total for 1 bag:</span>
+                            <span>KES 2,080</span>
+                        </div>
+                    </div>
+                    
+                    <div class="countdown">
+                        <div>⏰ Group closes in:</div>
+                        <div class="countdown-timer">3 days 6 hours</div>
+                    </div>
+                    
+                    <button class="btn-join mt-3">Join This Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
