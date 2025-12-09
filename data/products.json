@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Dairy Meal 16% (50kg)",
+      "icon": "🐄",
+      "retail_price": 2800,
+      "group_price": 2100,
+      "savings_percent": 25,
+      "description": "High protein dairy concentrate for lactating cows.",
+      "category": "dairy",
+      "joined_farmers": 8
+    },
+    {
+      "id": 2,
+      "name": "Layer Mash (70kg)",
+      "icon": "🐔",
+      "retail_price": 3500,
+      "group_price": 2800,
+      "savings_percent": 20,
+      "description": "Complete feed for laying hens.",
+      "category": "chicken",
+      "joined_farmers": 5
+    }
+  ]
+}
