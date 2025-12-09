@@ -1,0 +1,14 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "product": "Dairy Meal 16% - Nyeri Town",
+      "status": "active",
+      "progress": 85,
+      "target_kg": 500,
+      "current_kg": 425,
+      "farmers_count": 8,
+      "end_date": "2024-12-15"
+    }
+  ]
+}
