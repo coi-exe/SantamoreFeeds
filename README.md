@@ -19,6 +19,5 @@ Santamore Feeds is a digital cooperative platform that enables small-scale farme
 - Frontend: Bootstrap 5 + HTML5 + CSS3
 - Payment: M-Pesa Daraja API
 - SMS: Africa's Talking API
-- Deployment: Railway/Render/DigitalOcean
 
 git clone https://github.com/coi-exe/santamore-feeds.git
